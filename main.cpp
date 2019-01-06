@@ -167,7 +167,7 @@ uint8_t reportStarted = false;
                     sprintf(buffer,"%f",(double)fDewPoint);
                     cnet.sendStandard(buffer,BROADCAST,'C','1','d','F');
                 break;
-                #ifdef DRUCKREPORT
+                #ifdef USE_PRESSURE_SENSOR
                 case DRUCKREPORT:
                     sprintf(buffer,"%f",(double)dPressure);
                     cnet.sendStandard(buffer,BROADCAST,'C','1','p','F');
