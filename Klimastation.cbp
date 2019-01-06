@@ -22,7 +22,6 @@
 					<Add option="-DSYSCLK=CLK32M" />
 					<Add option="-DPLL=0" />
 					<Add option="-DBOARD_VERSION=0" />
-					<Add option="-DUSE_LIGHT_SENSOR" />
 					<Add option="-DUSE_PRESSURE_SENSOR" />
 					<Add option="-DNODE_STRING=C1" />
 				</Compiler>
@@ -46,6 +45,7 @@
 					<Add option="-DSYSCLK=QUARZ" />
 					<Add option="-DPLL=2" />
 					<Add option="-DBOARD_VERSION=1" />
+					<Add option="-DUSE_LIGHT_SENSOR" />
 					<Add option="-DNODE_STRING=CQ" />
 				</Compiler>
 				<Linker>
