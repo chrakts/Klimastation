@@ -43,3 +43,9 @@
 *.exe
 *.out
 *.app
+
+-DNDEBUG
+
+-ffunction-sections
+
+-fno-inline-small-functions
