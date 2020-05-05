@@ -43,12 +43,14 @@ extern char IndexNumber[2] EEMEM;
 extern SFE_BMP180 drucksensor;
 extern BH1750 lichtsensor;
 
+extern uint16_t actReportBetweenBlocks;
+extern uint16_t actReportBetweenSensors;
+extern uint16_t actWaitAfterLastSensor;
+
 extern float fTemperatur,fHumidity,fDewPoint,fAbsHumitdity;
 extern double dPressure , dSealevel ;
 extern uint16_t uLicht;
 
-extern char Compilation_Date[];
-extern char Compilation_Time[];
 //extern TempSensor *tempSensors[NUMBER_OF_TEMPSENSORS];
 //extern SENSINFOS storedSensors[NUMBER_STORED_SENSORS] EEMEM;
 extern const char *fehler_text[];
@@ -72,9 +74,10 @@ extern TWI_Master_t twiE_Master;    /*!< TWI master module. */
 //extern Serial myout;
 //extern Serial cnet;
 class Communication;   // Forward declaration
+class ComReceiver;
 extern Serial debug;
 extern Communication cnet;
-
+extern ComReceiver cnetRec;
 extern CRC_Calc crcGlobal;
 
 extern volatile uint8_t sendFree;

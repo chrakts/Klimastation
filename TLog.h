@@ -34,10 +34,11 @@
 //#include "TempSensor.h"
 #include "External.h"
 #include "MyTimer.h"
+#include "cmultiStandardCommands.h"
 #include "ComReceiver.h"
 #include "CommandFunctions.h"
 #include "sensirion_protocol.h"
-#include "CmultiBusy.h"
 #include "Communication.h"
+#include "xmegaClocks.h"
 
 #endif /* TLOG_H_ */

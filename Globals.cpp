@@ -19,24 +19,16 @@ const char *Node = NODE_STRING;
 char IDNumber[12] EEMEM = "1784324-01";
 char SerialNumber[12] EEMEM = "1958632254";
 char IndexNumber[2] EEMEM = "A";
+//TempSensor *activeSensor=NULL;
 
-
-const char *fehler_text[]={"memory errors","parameter error","unknown job","no transmission","command not allowed","CRC error"};
-
-char Compilation_Date[] = __DATE__;
-char Compilation_Time[] = __TIME__;
-
-//volatile uint8_t UART0_ring_received;
-//volatile char UART0_ring_buffer[UART0_RING_BUFFER_SIZE];
-//volatile uint8_t UART1_ring_received;
-//volatile char UART1_ring_buffer[UART1_RING_BUFFER_SIZE];
+uint16_t actReportBetweenBlocks  = REPORT_BETWEEN_BLOCKS;
+uint16_t actReportBetweenSensors = REPORT_BETWEEN_SENSORS;
+uint16_t actWaitAfterLastSensor  = WAIT_AFTER_LAST_SENSOR;
 
 volatile TIMER MyTimers[MYTIMER_NUM]= {	{TM_START,RESTART_YES,100,0,nextTemperatureStatus},
-                                        {TM_STOP,RESTART_YES,REPORT_BETWEEN_SENSORS,0,nextReportStatus},
+                                        {TM_STOP,RESTART_YES,actReportBetweenSensors,0,nextReportStatus},
 										{TM_STOP,RESTART_NO,100,0,NULL}		// Timeout-Timer
 };
-
-//TempSensor *activeSensor=NULL;
 
 float fTemperatur=-999,fHumidity=-999,fDewPoint=-999,fAbsHumitdity=-999;
 double dPressure = -999, dSealevel = TRAUNSTEIN;
@@ -72,13 +64,9 @@ TWI_Master_t twiE_Master;    /*!< TWI master module. */
 
 //SENSINFOS storedSensors[NUMBER_STORED_SENSORS] EEMEM;
 
-//volatile uint8_t sendFree;
 volatile bool nextSendReady=false;
 
-Serial debug(0);
- Communication cnet(1,Node,5);
+Communication cnet(0,Node,5,true);
+ComReceiver cnetRec(&cnet,Node,cnetCommands,NUM_COMMANDS,NULL,0);
 
-//Serial cnet(1);
-
-//CRC_Calc crcGlobal;
 

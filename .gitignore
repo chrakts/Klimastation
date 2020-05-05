@@ -49,3 +49,5 @@
 -ffunction-sections
 
 -fno-inline-small-functions
+
+bin/xBoot/xBootKlimastation.fuse

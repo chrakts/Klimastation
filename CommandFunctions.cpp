@@ -7,107 +7,125 @@
 
 #include "CommandFunctions.h"
 #include "External.h"
-#include "CRC_Calc.h"
+#include "../Secrets/secrets.h"
 
-void jobGotCRCError(Communication *output, char function,char address,char job, void * pMem)
-{
-	sendAnswer(output,function,address,job,fehler_text[CRC_ERROR],false);
-}
 
-void jobSetIDNumber(Communication *output, char function,char address,char job, void * pMem)
+COMMAND cnetCommands[NUM_COMMANDS] =
+	{
+    cmultiStandardCommands,
+		{'P','i',CUSTOMER,NOPARAMETER,0,jobGetIDNumber},
+		{'P','s',CUSTOMER,NOPARAMETER,0,jobGetSerialNumber},
+		{'P','x',CUSTOMER,NOPARAMETER,0,jobGetIndex},
+		{'P','I',PRODUCTION,STRING,13,jobSetIDNumber},
+		{'P','S',PRODUCTION,STRING,13,jobSetSerialNumber},
+		{'P','X',PRODUCTION,STRING,3,jobSetIndexNumber},
+		{'C','t',CUSTOMER,NOPARAMETER,0,jobGetCTemperatureSensor},
+		{'C','h',CUSTOMER,NOPARAMETER,0,jobGetCHumiditySensor},
+		{'C','d',CUSTOMER,NOPARAMETER,0,jobGetCDewPointSensor},
+		{'C','a',CUSTOMER,NOPARAMETER,0,jobGetCAbsHumiditySensor},
+		{'C','p',CUSTOMER,NOPARAMETER,0,jobGetPressure},
+		{'C','S',CUSTOMER,FLOAT,1,jobSetSealevel},
+		{'C','s',CUSTOMER,NOPARAMETER,0,jobGetSealevel},
+		{'C','l',CUSTOMER,NOPARAMETER,0,jobGetLight},
+		{'T','B',CUSTOMER,UINT_16,1,jobSetTimeBetweenBlocks},
+		{'T','S',CUSTOMER,UINT_16,1,jobSetTimeBetweenSensors},
+		{'T','W',CUSTOMER,UINT_16,1,jobWaitAfterLastSensor}
+	};
+
+void jobSetIDNumber(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	if (strlen((char*)pMem)<=11)
 	{
 		eeprom_write_block((char*)pMem,IDNumber,strlen((char*)pMem)+1);
-		sendPureAnswer(output,function,address,job,true);
+		comRec->sendPureAnswer(function,address,job,true);
 	}
 	else
-		sendPureAnswer(output,function,address,job,false);
+		comRec->sendPureAnswer(function,address,job,false);
 }
 
-void jobSetSerialNumber(Communication *output, char function,char address,char job, void * pMem)
+void jobSetSerialNumber(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	if (strlen((char*)pMem)<=11)
 	{
 		eeprom_write_block((char*)pMem,SerialNumber,strlen((char*)pMem)+1);
-		sendPureAnswer(output,function,address,job,true);
+		comRec->sendPureAnswer(function,address,job,true);
 	}
 	else
-	sendPureAnswer(output,function,address,job,false);
+	comRec->sendPureAnswer(function,address,job,false);
 }
 
-void jobSetIndexNumber(Communication *output, char function,char address,char job, void * pMem)
+void jobSetIndexNumber(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	if (strlen((char*)pMem)<=2)
 	{
 		eeprom_write_block((char*)pMem,IndexNumber,strlen((char*)pMem)+1);
-		sendPureAnswer(output,function,address,job,true);
+		comRec->sendPureAnswer(function,address,job,true);
 	}
 	else
-		sendPureAnswer(output,function,address,job,false);
+		comRec->sendPureAnswer(function,address,job,false);
 }
 
-void jobGetIDNumber(Communication *output, char function,char address,char job, void * pMem)
+void jobGetIDNumber(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char temp[12];
 	eeprom_read_block(temp,IDNumber,12);
-	sendAnswer(output,function,address,job,temp,true);
+	comRec->sendAnswer(temp,function,address,job,true);
 }
 
-void jobGetSerialNumber(Communication *output, char function,char address,char job, void * pMem)
+void jobGetSerialNumber(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char temp[12];
 	eeprom_read_block(temp,SerialNumber,12);
-	sendAnswer(output,function,address,job,temp,true);
+	comRec->sendAnswer(temp,function,address,job,true);
 }
 
-void jobGetIndex(Communication *output, char function,char address,char job, void * pMem)
+void jobGetIndex(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char temp[2];
 	eeprom_read_block(temp,IndexNumber,2);
-	sendAnswer(output,function,address,job,temp,true);
+	comRec->sendAnswer(temp,function,address,job,true);
 }
 
-void jobGetCTemperatureSensor(Communication *output, char function,char address,char job, void * pMem)
+void jobGetCTemperatureSensor(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 char answer[20]="";
 
 	sprintf(answer,"%f",(double)fTemperatur);
-	sendAnswer(output,function,address,job,answer,true);
+	comRec->sendAnswer(answer,function,address,job,true);
 }
 
-void jobGetCHumiditySensor(Communication *output, char function,char address,char job, void * pMem)
+void jobGetCHumiditySensor(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char answer[20]="";
 
 	sprintf(answer,"%f",(double)fHumidity);
-	sendAnswer(output,function,address,job,answer,true);
+	comRec->sendAnswer(answer,function,address,job,true);
 }
 
-void jobGetCAbsHumiditySensor(Communication *output, char function,char address,char job, void * pMem)
+void jobGetCAbsHumiditySensor(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char answer[20]="";
 
 	sprintf(answer,"%f",(double)fAbsHumitdity);
-	sendAnswer(output,function,address,job,answer,true);
+	comRec->sendAnswer(answer,function,address,job,true);
 }
 
-void jobGetCDewPointSensor(Communication *output, char function,char address,char job, void * pMem)
+void jobGetCDewPointSensor(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char answer[20]="";
 
 	sprintf(answer,"%f",(double)fDewPoint);
-	sendAnswer(output,function,address,job,answer,true);
+	comRec->sendAnswer(answer,function,address,job,true);
 }
-void jobGetPressure(Communication *output, char function,char address,char job, void * pMem)
+void jobGetPressure(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char answer[20]="";
 
 	sprintf(answer,"%f",dPressure);
-	sendAnswer(output,function,address,job,answer,true);
+	comRec->sendAnswer(answer,function,address,job,true);
 }
 
-void jobSetSealevel(Communication *output, char function,char address,char job, void * pMem)
+void jobSetSealevel(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	double *pointer;
 	double temp;
@@ -116,104 +134,68 @@ void jobSetSealevel(Communication *output, char function,char address,char job, 
 	if ( (temp>-100.0) && (temp < 9000.0) )
 	{
 		dSealevel = temp;
-		sendPureAnswer(output,function,address,job,true);
+		comRec->sendPureAnswer(function,address,job,true);
 	}
 	else
-		sendPureAnswer(output,function,address,job,false);
+		comRec->sendPureAnswer(function,address,job,false);
 }
 
-void jobGetSealevel(Communication *output, char function,char address,char job, void * pMem)
+void jobGetSealevel(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char answer[20]="";
 	sprintf(answer,"%f",dSealevel);
-	sendAnswer(output,function,address,job,answer,true);
+	comRec->sendAnswer(answer,function,address,job,true);
 }
 
-void jobGetLight(Communication *output, char function,char address,char job, void * pMem)
+void jobGetLight(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	char answer[20]="";
 	sprintf(answer,"%d",uLicht);
-	sendAnswer(output,function,address,job,answer,true);
+	comRec->sendAnswer(answer,function,address,job,true);
 }
 
-void jobSetSecurityKey(Communication *output, char function,char address,char job, void * pMem)
-{
-uint8_t ret = true;
-	if (strcmp((char *)pMem,"Phe6%!kdf?+2aQ")==0)
-	{
-		SecurityLevel = PRODUCTION;
-	}
-	else if(strcmp((char *)pMem,"D=&27ane%24dez")==0)
-	{
-		SecurityLevel = DEVELOPMENT;
-	}
-	else
-	{
-		SecurityLevel = CUSTOMER;
-		ret = false;
-	}
-	sendAnswerInt(output,function,address,job,SecurityLevel,ret);
-}
 
-void jobGetSecurityKey(Communication *output, char function,char address,char job, void * pMem)
-{
-	sendAnswerInt(output,function,address,job,SecurityLevel,true);
-}
-
-void jobTestTripleIntParameter(Communication *output, char function,char address,char job, void * pMem)
+void jobTestTripleIntParameter(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	uint16_t *pointer;
-	sendAnswer(output,function,address,job,"Parameter: ",true);
+	comRec->sendAnswer("Parameter: ",function,address,job,true);
 	pointer = (uint16_t*) pMem;
-	sendAnswerInt(output,function,address,job,pointer[0],true);
-	sendAnswerInt(output,function,address,job,pointer[1],true);
-	sendAnswerInt(output,function,address,job,pointer[2],true);
+  comRec->sendAnswerInt(function,address,job,pointer[0],true);
+	comRec->sendAnswerInt(function,address,job,pointer[1],true);
+	comRec->sendAnswerInt(function,address,job,pointer[2],true);
 }
 
-void jobTestStringParameter(Communication *output, char function,char address,char job, void * pMem)
+void jobTestStringParameter(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 CRC_Calc mycrc;
 
 	mycrc.String((const char*) pMem);
-	sendAnswerInt(output,function,address,job,mycrc.Get_CRC(),true);
+	comRec->sendAnswerInt(function,address,job,mycrc.Get_CRC(),true);
 }
 
-void jobTestFloatParameter(Communication *output, char function,char address,char job, void * pMem)
+void jobTestFloatParameter(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
 	double *pointer;
-	sendAnswer(output,function,address,job,"Parameter: ",true);
+	comRec->sendAnswer("Parameter: ",function,address,job,true);
 	pointer = (double*) pMem;
-	sendAnswerDouble(output,function,address,job,pointer[0],true);
+	comRec->sendAnswerDouble(function,address,job,pointer[0],true);
 }
 
-void jobTestParameter(Communication *output, char function,char address,char job, void * pMem)
+void jobSetTimeBetweenBlocks(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
-	uint16_t *pointer;
-	sendAnswer(output,function,address,job,"Parameter: ",true);
-	pointer = (uint16_t*) pMem;
-	sendAnswerInt(output,function,address,job,pointer[0],true);
+	actReportBetweenBlocks = ( (uint16_t*) pMem )[0];
+	comRec->sendAnswerInt(function,address,job,actReportBetweenBlocks,true);
 }
 
-void jobGetCompilationDate(Communication *output, char function,char address,char job, void * pMem)
+void jobSetTimeBetweenSensors(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
-char temp[20];
-	strcpy(temp,Compilation_Date);
-	sendAnswer(output,function,address,job,temp,true);
+	actReportBetweenSensors = ( (uint16_t*) pMem )[0];
+	comRec->sendAnswerInt(function,address,job,actReportBetweenSensors,true);
 }
 
-void jobGetCompilationTime(Communication *output, char function,char address,char job, void * pMem)
+void jobWaitAfterLastSensor(ComReceiver *comRec, char function,char address,char job, void * pMem)
 {
-char temp[20];
-	strcpy(temp,Compilation_Time);
-	sendAnswer(output,function,address,job,temp,true);
-}
-
-void jobGetFreeMemory(Communication *output, char function,char address,char job, void * pMem)
-{
-extern int __heap_start, *__brkval;
-int v;
-	char answer[15];
-	sprintf(answer,"%d",(int) &v - (__brkval == 0 ? (int) &__heap_start : (int) __brkval));
-	sendAnswer(output,function,address,job,answer,true);
+	actWaitAfterLastSensor = ( (uint16_t*) pMem )[0];
+	comRec->sendAnswerInt(function,address,job,actWaitAfterLastSensor,true);
 }
 

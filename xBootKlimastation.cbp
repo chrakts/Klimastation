@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="xBootKlimastation" />
+		<Option pch_mode="2" />
+		<Option compiler="avr-gcc" />
+		<Build>
+			<Target title="xBoot">
+				<Option output="bin/xBoot/xBootKlimastation.elf" prefix_auto="1" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="obj/xBoot/" />
+				<Option type="5" />
+				<Option compiler="avr-gcc" />
+				<Compiler>
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-Os" />
+					<Add option="-Wall" />
+					<Add option="-std=c++11" />
+					<Add option="-mmcu=atxmega32a4u" />
+					<Add option="-c -fpermissive" />
+					<Add option="-Wno-enum-compare" />
+					<Add option="-MD -MP -MF" />
+					<Add option="-ffunction-sections" />
+					<Add option="-fdata-sections" />
+					<Add option="-fpack-struct" />
+					<Add option="-funsigned-char" />
+					<Add option="-funsigned-bitfields" />
+					<Add option="-DNDEBUG" />
+					<Add directory="/home/chrak/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega2" />
+					<Add directory="/home/chrak/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/include" />
+				</Compiler>
+				<Linker>
+					<Add option="-Wl,--gc-sections" />
+				</Linker>
+			</Target>
+			<Environment>
+				<Variable name="MCU" value="atxmega32a4u" />
+			</Environment>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-mmcu=atxmega32a4u" />
+			<Add option="-DF_CPU=32000000UL" />
+			<Add directory="/home/chrak/Daten/Software/repositories/xmegaClocks" />
+			<Add directory="/home/chrak/Daten/Software/repositories/xbootChrak" />
+			<Add directory="/home/chrak/Daten/Software/repositories/Klimastation" />
+		</Compiler>
+		<Linker>
+			<Add option="-mmcu=atxmega32a4u" />
+			<Add option="-Wl,-Map=$(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).map,--cref" />
+			<Add option="-Wl,--section-start=.text=0x08000" />
+			<Add option="-Wl,-u" />
+			<Add option="-Wl,--gc-sections" />
+			<Add directory="/home/chrak/Daten/Software/repositories/xmegaClocks" />
+			<Add directory="/home/chrak/Daten/Software/repositories/xbootChrak" />
+			<Add directory="/home/chrak/Daten/Software/repositories/Klimastation" />
+		</Linker>
+		<ExtraCommands>
+			<Add after="avr-objdump -h -S $(TARGET_OUTPUT_FILE) &gt; $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).lss" />
+			<Add after="avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).hex" />
+			<Add after="avr-objcopy --no-change-warnings -j .eeprom --change-section-lma .eeprom=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).eep" />
+			<Add after="avr-objcopy --no-change-warnings -j .lock --change-section-lma .lock=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).lock" />
+			<Add after="avr-objcopy --no-change-warnings -j .signature --change-section-lma .signature=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).sig" />
+			<Add after="avr-objcopy --no-change-warnings -j .fuse --change-section-lma .fuse=0 -O ihex $(TARGET_OUTPUT_FILE) $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).fuse" />
+			<Add after="avr-size $(TARGET_OUTPUT_FILE)" />
+		</ExtraCommands>
+		<Unit filename="../xbootChrak/eeprom_driver.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xbootChrak/eeprom_driver.h" />
+		<Unit filename="../xbootChrak/fifo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xbootChrak/fifo.h" />
+		<Unit filename="../xbootChrak/flash.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xbootChrak/flash.h" />
+		<Unit filename="../xbootChrak/i2c.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xbootChrak/i2c.h" />
+		<Unit filename="../xbootChrak/protocol.h" />
+		<Unit filename="../xbootChrak/sp_driver.S" />
+		<Unit filename="../xbootChrak/sp_driver.h" />
+		<Unit filename="../xbootChrak/uart.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xbootChrak/uart.h" />
+		<Unit filename="../xbootChrak/watchdog.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xbootChrak/watchdog.h" />
+		<Unit filename="../xbootChrak/xboot.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xbootChrak/xboot.h" />
+		<Unit filename="../xmegaClocks/xmegaClocks.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../xmegaClocks/xmegaClocks.h" />
+		<Unit filename="xBootConfig.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
