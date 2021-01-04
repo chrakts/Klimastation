@@ -361,8 +361,8 @@ float rh_lin; // rh_lin: Humidity linear
 float rh_true; // rh_true: Temperature compensated humidity
 float t_C; // t_C : Temperature [C]
 
-	t_C=(-39.65+t*0.01); //calc. Temperature from ticks to [C]
-
+	t_C = (-39.65+t*0.01); //calc. Temperature from ticks to [C]
+	t_C = t_C + T_KAL_P0 + T_KAL_P1 * t_C;
 	rh_lin=C3*rh*rh + C2*rh + C1; //calc. Humidity from ticks to [%RH]
 	rh_true=(t_C-25)*(T1+T2*rh)+rh_lin; //calc. Temperature compensated humidity [%RH]
 	if(rh_true>100)rh_true=100; //cut if the value is outside of

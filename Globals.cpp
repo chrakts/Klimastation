@@ -67,6 +67,6 @@ TWI_Master_t twiE_Master;    /*!< TWI master module. */
 volatile bool nextSendReady=false;
 
 Communication cnet(0,Node,5,true);
-ComReceiver cnetRec(&cnet,Node,cnetCommands,NUM_COMMANDS,NULL,0);
+ComReceiver cnetRec(&cnet,Node,cnetCommands,NUM_COMMANDS,NULL,0,NULL,NULL);
 
 

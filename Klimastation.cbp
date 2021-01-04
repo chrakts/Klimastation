@@ -25,6 +25,8 @@
 					<Add option="-DBOARD_VERSION=0" />
 					<Add option="-DUSE_PRESSURE_SENSOR" />
 					<Add option="-DNODE_STRING=C1" />
+					<Add option="-DT_KAL_P0=-0.96" />
+					<Add option="-DT_KAL_P1=0" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -49,6 +51,8 @@
 					<Add option="-DBOARD_VERSION=1" />
 					<Add option="-DUSE_LIGHT_SENSOR" />
 					<Add option="-DNODE_STRING=CQ" />
+					<Add option="-DT_KAL_P0=-2.93" />
+					<Add option="-DT_KAL_P1=0" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -128,10 +132,7 @@
 		<Unit filename="twi_master_driver.h" />
 		<Unit filename="uartHardware.h" />
 		<Extensions>
-			<envvars />
-			<code_completion />
 			<lib_finder disable_auto="1" />
-			<debugger />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
