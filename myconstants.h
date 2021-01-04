@@ -23,7 +23,7 @@
 #define LED_GRUEN_OFF		PORTA_OUTSET = PIN4_bm
 #define LED_GRUEN_TOGGLE	PORTA_OUTTGL = PIN4_bm
 
-#define TRAUNSTEIN			591.0  // sealevel of Traunstein
+#define TRAUNSTEIN			610.0  // sealevel of Traunstein
 /*
 struct SensInfos
 {
