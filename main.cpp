@@ -29,7 +29,6 @@ void setup()
 	PORTE_DIRSET = 0xff;
 
 	uint8_t i;
-	//init_clock(SYSCLK,PLL);
 
 	for(i=0;i<20;i++)
 	{
