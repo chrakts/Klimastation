@@ -27,8 +27,8 @@
 					<Add option="-funsigned-char" />
 					<Add option="-funsigned-bitfields" />
 					<Add option="-DNDEBUG" />
-					<Add directory="/home/chrak/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega2" />
-					<Add directory="/home/chrak/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/include" />
+					<Add directory="/home/christof/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega2" />
+					<Add directory="/home/christof/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/include" />
 				</Compiler>
 				<Linker>
 					<Add option="-Wl,--gc-sections" />
@@ -42,9 +42,9 @@
 			<Add option="-Wall" />
 			<Add option="-mmcu=atxmega32a4u" />
 			<Add option="-DF_CPU=32000000UL" />
-			<Add directory="/home/chrak/Daten/Software/repositories/xmegaClocks" />
-			<Add directory="/home/chrak/Daten/Software/repositories/xbootChrak" />
-			<Add directory="/home/chrak/Daten/Software/repositories/Klimastation" />
+			<Add directory="/home/christof/Daten/Software/repositories/xmegaClocks" />
+			<Add directory="/home/christof/Daten/Software/repositories/xbootChrak" />
+			<Add directory="/home/christof/Daten/Software/repositories/Klimastation" />
 		</Compiler>
 		<Linker>
 			<Add option="-mmcu=atxmega32a4u" />
@@ -52,9 +52,9 @@
 			<Add option="-Wl,--section-start=.text=0x08000" />
 			<Add option="-Wl,-u" />
 			<Add option="-Wl,--gc-sections" />
-			<Add directory="/home/chrak/Daten/Software/repositories/xmegaClocks" />
-			<Add directory="/home/chrak/Daten/Software/repositories/xbootChrak" />
-			<Add directory="/home/chrak/Daten/Software/repositories/Klimastation" />
+			<Add directory="/home/christof/Daten/Software/repositories/xmegaClocks" />
+			<Add directory="/home/christof/Daten/Software/repositories/xbootChrak" />
+			<Add directory="/home/christof/Daten/Software/repositories/Klimastation" />
 		</Linker>
 		<ExtraCommands>
 			<Add after="avr-objdump -h -S $(TARGET_OUTPUT_FILE) &gt; $(TARGET_OUTPUT_DIR)$(TARGET_OUTPUT_BASENAME).lss" />

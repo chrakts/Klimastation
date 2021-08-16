@@ -73,13 +73,13 @@
 			<Add option="-fpack-struct" />
 			<Add option="-funsigned-char" />
 			<Add option="-funsigned-bitfields" />
-			<Add directory="/home/chrak/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega2" />
-			<Add directory="/home/chrak/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/include" />
+			<Add directory="/home/christof/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/lib/avrxmega2" />
+			<Add directory="/home/christof/Downloads/avr8-gnu-toolchain-linux_x86_64/avr/include" />
 			<Add directory="../Klimastation" />
-			<Add directory="/home/chrak/Daten/Software/repositories/communication" />
-			<Add directory="/home/chrak/Daten/Software/repositories/ComReceiver" />
-			<Add directory="/home/chrak/Daten/Software/repositories/Secrets" />
-			<Add directory="/home/chrak/Daten/Software/repositories/xmegaClocks" />
+			<Add directory="/home/christof/Daten/Software/repositories/communication" />
+			<Add directory="/home/christof/Daten/Software/repositories/ComReceiver" />
+			<Add directory="/home/christof/Daten/Software/repositories/Secrets" />
+			<Add directory="/home/christof/Daten/Software/repositories/xmegaClocks" />
 		</Compiler>
 		<Linker>
 			<Add option="-mmcu=atxmega32a4u" />
